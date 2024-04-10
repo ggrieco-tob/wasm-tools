@@ -1824,6 +1824,7 @@ impl Module {
             }
             return Ok(());
         }
+        self.add_arbitrary_export("memory".to_string(), ExportKind::Memory, 0);
 
         arbitrary_loop(u, self.config.min_exports, self.config.max_exports, |u| {
             // Remove all candidates for export whose type size exceeds our
