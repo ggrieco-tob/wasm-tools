@@ -418,6 +418,7 @@ impl Module {
         if !self.required_exports(u)? {
             self.arbitrary_exports(u)?;
         };
+        self.add_arbitrary_export("memory".to_string(), ExportKind::Memory, 0);
         self.should_encode_types = !self.types.is_empty() || u.arbitrary()?;
         self.arbitrary_start(u)?;
         self.arbitrary_elems(u)?;
@@ -1824,7 +1825,6 @@ impl Module {
             }
             return Ok(());
         }
-        self.add_arbitrary_export("memory".to_string(), ExportKind::Memory, 0);
 
         arbitrary_loop(u, self.config.min_exports, self.config.max_exports, |u| {
             // Remove all candidates for export whose type size exceeds our
